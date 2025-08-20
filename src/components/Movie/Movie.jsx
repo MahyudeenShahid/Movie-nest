@@ -3,7 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 function Movie({ movie, index }) {
-    console.log(movie.vote_average)
+    
   return (
     <Grid 
       key={movie.id || index} 
@@ -61,7 +61,7 @@ function Movie({ movie, index }) {
           >
             {movie.title}
           </Typography>
-          <Tooltip title={`${movie.vote_average}/10`} disableTouchListener>
+          <Tooltip   title={`${movie.vote_average.toFixed(1)}/10`}  disableTouchListener>
   <div>
     <Rating 
       readOnly 

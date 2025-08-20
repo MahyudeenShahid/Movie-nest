@@ -17,9 +17,8 @@ import {
   Brightness7
 } from '@mui/icons-material'
 import { Link } from 'react-router-dom'
-import { SideBar } from '..'
-import blueLogo from '../../assets/blue.png';
-import redLogo from '../../assets/red.png';
+import { SideBar,Search } from '..'
+import { white } from '../../assets'
 
 function NavBar() {
   const theme = useTheme();
@@ -62,7 +61,7 @@ function NavBar() {
             <Box sx={{ flexGrow: 0 }}>
               <Box
                 component="img"
-                src={theme.palette.mode === 'dark' ? blueLogo : redLogo}
+                src={white}
                 alt="Logo"
                 sx={{
                   height: 90,
@@ -81,7 +80,7 @@ function NavBar() {
           </IconButton>
 
           {/* Search placeholder */}
-          {!isMobile && 'Search......'}
+          {!isMobile && <Search />}
 
           {/* Authentication */}
           {!isAuthenticated ? (
@@ -105,7 +104,7 @@ function NavBar() {
           )}
 
         </Toolbar>
-        {isMobile && 'Search......'}
+        {isMobile && <Search />}
       </AppBar>
 
       {/* Drawer Section */}

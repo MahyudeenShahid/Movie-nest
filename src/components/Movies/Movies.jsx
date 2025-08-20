@@ -1,10 +1,17 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {  useGetMoviesQuery } from '../../Services/TMBD';
 import {MovieList} from '..';
 import { Box, CircularProgress } from '@mui/material';
+import { selectGenreAndCategory } from '../../features/currentGenreAndCategory';
+import { useSelector } from 'react-redux';
 
 function Movies() {
-  const { data,error,isFetching } = useGetMoviesQuery();
+  const [page, setPage] = useState(1);
+
+    const { genreIdOrCategoryName,searchQuery } = useSelector((state) => state.currentGenreAndCategory);
+  
+
+  const { data,error,isFetching } = useGetMoviesQuery({genreIdOrCategoryName,page,searchQuery});
 
   if (isFetching){
     return <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
@@ -30,7 +37,7 @@ function Movies() {
   }
 
   console.log('Movies component loaded');
-  console.dir(data);
+  
   return (
     <>
     <Box sx={{ mt: '85px', ml: { sm: '240px' } }}>

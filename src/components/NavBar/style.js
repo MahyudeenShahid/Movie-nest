@@ -3,20 +3,24 @@ import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles((theme) => ({
   
-title:{
-  color: theme.palette.primary,
-  textOverflow: 'ellipsis',
-  whiteSpace: 'nowrap',
-  overflow: 'hidden',
-  width: '230px',
-  textAlign: 'center',
-  marginTop: '10px',
-  marginBottom: '0',
-  [theme.breakpoints.up('xs')]: {
+searchContainer:{
+  [theme.breakpoints.up('sm')]: {
     display: 'flex',
-    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
     width: '100%',
   },
+
+  input:{
+    color: theme.palette.mode==='light'&& 'black',
+    filter: theme.palette.mode==='light'&& 'invert(1)',
+    [theme.breakpoints.up('sm')]: {
+    marginTop:'-10px',
+    marginBottom: '10px',
+  },
+  }
+
+
 }
 
 
