@@ -12,12 +12,13 @@ function Movies() {
   
 
   const { data,error,isFetching } = useGetMoviesQuery({genreIdOrCategoryName,page,searchQuery});
+  console.dir(data);
 
   if (isFetching){
     return <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
       <CircularProgress size={'4rem'} />
     </Box>
-  };
+  }; 
   if (!data.results.length){ 
     return <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
       <Typography variant='h5'>No Movies Found</Typography>
@@ -40,10 +41,10 @@ function Movies() {
   
   return (
     <>
-    <Box sx={{ mt: '85px', ml: { sm: '240px' } }}>
+    
   <div>Movies</div>
     <MovieList movies={data?.results || []} />
-</Box>
+
     
     </>
   )

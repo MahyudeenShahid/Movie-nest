@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { tmbdApi } from '../Services/TMBD';
 import genreAndCategoryReducer from '../features/currentGenreAndCategory';
+import userReducer from '../features/Auth';
 
 
 export const store = configureStore({
@@ -8,6 +9,7 @@ export const store = configureStore({
     // Add your reducers here
     [tmbdApi.reducerPath]: tmbdApi.reducer,
     currentGenreAndCategory: genreAndCategoryReducer,
+    user: userReducer,
 
   },
   middleware: (getDefaultMiddleware) =>

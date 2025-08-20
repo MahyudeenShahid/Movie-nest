@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   AppBar,
   IconButton,
@@ -19,18 +19,43 @@ import {
 import { Link } from 'react-router-dom'
 import { SideBar,Search } from '..'
 import { white } from '../../assets'
+import { fetchToken, createSessionId,movieApi } from '../../components/utils'
+import { useDispatch, useSelector } from 'react-redux'
+import { setUser,userSelector } from '../../features/Auth'
 
 function NavBar() {
   const theme = useTheme();
+  const { user, isAuthenticated, sessionId } = useSelector(userSelector);
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  const isAuthenticated = true;
+  console.log(user, isAuthenticated, sessionId);
   const drawerWidth = 240;
 
+const dispatch = useDispatch();
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+
+  const token = localStorage.getItem('tmdb_token');
+  const sessionIdFromStorage = localStorage.getItem('Session_id');
+  useEffect( () => {
+    const logInUser = async () => {
+      if(token){
+        if(sessionIdFromStorage){
+          // User is authenticated
+          const {data: userData} = await movieApi.get(`/account?session_id=${sessionIdFromStorage}`);
+          dispatch(setUser(userData));
+        } else {
+        // User is not authenticated
+        const sessionId = await createSessionId();
+         const {data: userData} = await movieApi.get(`/account?session_id=${sessionId}`);
+         dispatch(setUser(userData));
+      }
+    }
+  }
+  logInUser();
+  }, [token]);
 
   return (
     <>
@@ -84,14 +109,14 @@ function NavBar() {
 
           {/* Authentication */}
           {!isAuthenticated ? (
-            <Button color="inherit" onClick={() => { }}>
+            <Button color="inherit" onClick={fetchToken}>
               Login &nbsp; <AccountCircle />
             </Button>
           ) : (
             <Button
               color="inherit"
               component={Link}
-              to="/profile/:id"
+              to={`/profile/${user.id}`}
               onClick={() => { }}
             >
               {!isMobile && <>My Movies &nbsp;</>}
