@@ -2,7 +2,7 @@ import { Grid } from '@mui/material';
 import React from 'react';
 import {Movie} from '..';
 
-function MovieList({ movies }) {
+function MovieList({ movies , numberOfMovies }) {
   return (
     <Grid 
       container 
@@ -17,9 +17,12 @@ function MovieList({ movies }) {
         justifyContent: { xs: 'center', sm: 'space-between' },
       }}
     >
-      {movies && movies.map((movie , index) => (
-        <Movie key={index} movie={movie} index={index} />
-      ))}
+      {Array.isArray(movies) &&
+
+  movies.slice(0, numberOfMovies).map((movie, index) => (
+    <Movie key={movie.id || index} movie={movie} index={index} />
+  ))}
+
     </Grid>
   );
 }

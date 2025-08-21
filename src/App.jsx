@@ -19,6 +19,7 @@ function App() {
       <Route path="/" element={<Movies />} />
       <Route path="/actors" element={<Actors /> } />
       <Route path="/profile/:id" element={<Profile />} />
+      <Route path="/category/:genreIdOrCategoryName" element={<Movies />} />
     </Routes>
     {/* <h1>Hello World</h1> */}
     </Box>

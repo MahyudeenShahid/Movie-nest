@@ -30,10 +30,23 @@ export const tmbdApi= createApi({
         return `/movie/popular?page=${page}&api_key=${apiKey}`;
       }
     }),
+    //get movie details
+    getMovie:builder.query({
+      query: (id) => `/movie/${id}?append_to_response=videos,images,credits&api_key=${apiKey}`,
+    }),
+
+    // get user specific list 
+
+  getRecommendation: builder.query({
+    query: (movie_id) => `/movie/${movie_id}/recommendations?api_key=${apiKey}`,
+  }),
+  
   }),
 })
 
 export const { 
     useGetMoviesQuery,
     useGetGenresQuery,
+    useGetMovieQuery,
+    useGetRecommendationQuery
 } = tmbdApi

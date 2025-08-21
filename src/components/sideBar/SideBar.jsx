@@ -62,8 +62,8 @@ function SideBar() {
           <Box
             key={value}
             component={Link}
-            // to={`/category/${value}`}
-            to={`/`}
+            to={`/category/${value}`}
+            // to={`/`}
             sx={{
               color: theme.palette.text.primary,
               textDecoration: 'none',
@@ -103,8 +103,8 @@ function SideBar() {
           <Box
             key={id}
             component={Link}
-            // to={`/category/${id}`}
-            to={`/`}
+            to={`/category/${id}`}
+            // to={`/`}
             sx={{
               color: theme.palette.text.primary,
               textDecoration: 'none',

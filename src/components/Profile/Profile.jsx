@@ -12,7 +12,7 @@ function Profile() {
     localStorage.clear();
     window.location.href = '/'; // Redirect to home page after logout
   };
-  console.dir(user);
+  // console.dir(user);
   return (
     <Box>
       <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'} >
