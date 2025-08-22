@@ -40,13 +40,34 @@ export const tmbdApi= createApi({
   getRecommendation: builder.query({
     query: (movie_id) => `/movie/${movie_id}/recommendations?api_key=${apiKey}`,
   }),
-  
-  }),
+
+  getActorDetails: builder.query({
+  query: (id) => `/person/${id}?api_key=${apiKey}`,
+}),
+
+  // get movie by Actor id
+  getMoviesByActor: builder.query({
+  query: ({ id, page }) =>
+    `/discover/movie?with_cast=${id}&api_key=${apiKey}&page=${page}`,
+}),
+//get list of favorite and watchlisted
+
+getList: builder.query({
+  query: ({ user, listName, page }) =>
+    `/account/${user?.id}/${listName}/movies?api_key=${apiKey}&session_id=${localStorage.getItem('Session_id')}&page=${page}`,
+}),
+
+
+
+}),
 })
 
 export const { 
     useGetMoviesQuery,
     useGetGenresQuery,
     useGetMovieQuery,
-    useGetRecommendationQuery
+    useGetRecommendationQuery,
+    useGetActorDetailsQuery,
+    useGetMoviesByActorQuery,
+    useGetListQuery,
 } = tmbdApi

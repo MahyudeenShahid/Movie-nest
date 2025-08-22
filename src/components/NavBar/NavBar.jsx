@@ -29,7 +29,7 @@ function NavBar() {
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  console.log(user, isAuthenticated, sessionId);
+  // console.dir(user, isAuthenticated, sessionId);
   const drawerWidth = 240;
 
 const dispatch = useDispatch();
