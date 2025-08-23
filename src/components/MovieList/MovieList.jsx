@@ -2,7 +2,8 @@ import { Grid } from '@mui/material';
 import React from 'react';
 import {Movie} from '..';
 
-function MovieList({ movies , numberOfMovies }) {
+function MovieList({ movies , numberOfMovies ,excludeFirst }) {
+  const start = excludeFirst?1:0;
   return (
     <Grid 
       container 
@@ -19,7 +20,7 @@ function MovieList({ movies , numberOfMovies }) {
     >
       {Array.isArray(movies) &&
 
-  movies.slice(0, numberOfMovies).map((movie, index) => (
+  movies.slice(start, numberOfMovies).map((movie, index) => (
     <Movie key={movie.id || index} movie={movie} index={index} />
   ))}
 

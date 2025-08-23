@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useGetMoviesQuery } from '../../Services/TMBD';
-import { MovieList, Pagination } from '..';
+import { MovieList, Pagination , FeaturedMovie} from '..';
 import { Box, CircularProgress, Typography, useMediaQuery } from '@mui/material';
 import { selectGenreAndCategory } from '../../features/currentGenreAndCategory';
 import { useSelector } from 'react-redux';
@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux';
 function Movies() {
   const [page, setPage] = useState(1);
   const lg = useMediaQuery((theme) => theme.breakpoints.only('lg'));
-  const pageNumbers = lg ? 16 : 18;
+  const pageNumbers = lg ? 17 : 19;
 
   const { genreIdOrCategoryName, searchQuery } = useSelector(
     (state) => state.currentGenreAndCategory
@@ -82,9 +82,11 @@ function Movies() {
 
   return (
     <>
+    <FeaturedMovie movie={data?.results[0]} />
       <MovieList
         movies={data?.results || []}
         numberOfMovies={pageNumbers}
+        excludeFirst
       />
 
       <Pagination

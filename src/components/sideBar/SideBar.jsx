@@ -1,5 +1,5 @@
 import { useTheme } from '@mui/material/styles'; // ✅ useTheme from MUI not emotion
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Box, CircularProgress, Divider, List, ListItem, ListItemButton, ListItemIcon, ListItemText, ListSubheader } from '@mui/material'; // ✅ MUI Box for sx
 import {red,blue} from '../../assets';
@@ -7,7 +7,7 @@ import { useGetGenresQuery } from '../../Services/TMBD';
 import genreIcons from '../../assets/icons'
 import { useDispatch, useSelector } from 'react-redux';
 import { selectGenreAndCategory } from '../../features/currentGenreAndCategory';
-function SideBar() {
+function SideBar({setMobileOpen}) {
   const theme = useTheme();
   const dispatch = useDispatch();
   const { genreIdOrCategoryName } = useSelector((state) => state.currentGenreAndCategory);
@@ -21,7 +21,10 @@ function SideBar() {
   ]
   const { data, isFetching } = useGetGenresQuery();
   
-
+useEffect(() => {
+  
+setMobileOpen(false);
+}, [genreIdOrCategoryName]);
   
 
   return (
@@ -96,13 +99,13 @@ function SideBar() {
         }}>Genres</ListSubheader>
 
 
-{console.log('data in sidebar')}
-{console.dir(data.genres)}
+{/* {console.log('data in sidebar')}
+{console.dir(data?.genres)} */}
         {isFetching?(<Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
               <CircularProgress  />
             </Box>)
         :
-        (data.genres.map(({ name, id }) => (
+        (data.genres && data?.genres.map(({ name, id }) => (
           <Box
             key={id}
             component={Link}

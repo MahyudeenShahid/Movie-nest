@@ -8,7 +8,7 @@ export const genreAndCategory = createSlice({
   },
   reducers: {
     selectGenreAndCategory:(state,action)=>{
-        console.log(action.payload)
+        // console.log(action.payload)
        state.genreIdOrCategoryName = action.payload
        state.searchQuery= '';
     },
