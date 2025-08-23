@@ -9,7 +9,7 @@ function Search() {
   const dispatch = useDispatch();
 
   const keyHandle = (event) => {
-    if (event.key === 'Enter') {
+    if (event.key === 'Enter' && query.trim() !== '') {
       dispatch(searchMovie(query));
     }
   };
@@ -17,32 +17,43 @@ function Search() {
   return (
     <Box
       sx={{
-        display: { sm: 'flex' },
-        alignItems: { sm: 'center' },
-        justifyContent: { sm: 'center' },
-        width: { sm: '100%' },
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: '100%',
+        mt: { xs: 0, sm: 2 },
+        mb: { xs: 1, sm: 2 },
       }}
     >
-      <TextField
-  variant="standard"
-  placeholder="Search..."
-  fullWidth={false} // remove full width
+     <TextField
+  variant="outlined"
+  placeholder="Search for movies..."
+  value={query}
   onKeyDown={keyHandle}
   onChange={(e) => setQuery(e.target.value)}
-  InputProps={{
-    startAdornment: (
-      <InputAdornment position="start">
-        <SearchIcon />
-      </InputAdornment>
-    ),
+  slotProps={{
+    input: {
+      startAdornment: (
+        <InputAdornment position="start">
+          <SearchIcon color="action" />
+        </InputAdornment>
+      ),
+    },
   }}
   sx={{
-    maxWidth: '400px', // will shrink on small screens
-    width: '100%',     // flexible until maxWidth
-    color: (theme) => (theme.palette.mode === 'light' ? 'black' : 'inherit'),
-    filter: (theme) => (theme.palette.mode === 'light' ? 'invert(1)' : 'none'),
-    mt: { sm: '-10px' },
-    mb: { sm: '10px' },
+    width: { xs: "80%", sm: "70%", md: "400px" },
+    backgroundColor: (theme) =>
+      theme.palette.mode === "light"
+        ? theme.palette.grey[100]
+        : theme.palette.background.paper,
+    borderRadius: 2,
+    "& .MuiOutlinedInput-root": {
+      borderRadius: 2,
+      height: { xs: 38, sm: 45 }, // ✅ Shorter height on mobile
+      "& .MuiOutlinedInput-input": {
+        padding: { xs: "8px 14px", sm: "12px 14px" }, // Adjust input padding
+      },
+    },
   }}
 />
 

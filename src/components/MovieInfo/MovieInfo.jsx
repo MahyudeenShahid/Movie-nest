@@ -6,7 +6,7 @@ import genreIcons from '../../assets/icons'
 import { useDispatch, useSelector, } from 'react-redux';
 import { selectGenreAndCategory } from '../../features/currentGenreAndCategory';
 import { ArrowBack, Favorite, FavoriteBorderOutlined, Language, Movie, PlusOneRounded, RemoveCircle, Theaters } from '@mui/icons-material';
-import { MovieList } from '..';
+import { MovieList,InfoRow } from '..';
 import axios from 'axios';
 import { userSelector } from '../../features/Auth';
 
@@ -18,15 +18,19 @@ function MovieInfo() {
   const navigate = useNavigate();
   const [isFavorite, setIsFavorite] = useState(false);
   const [isWatchList, setisWatchList] = useState(false);
+  useEffect(() => {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}, [id]);
+
 
   const { data: recommendations, isLoading: isrecommendationLoading } = useGetRecommendationQuery(id);
   const [open, setOpen] = useState(false);
   const { user } = useSelector(userSelector)
-  console.log(user);
+  // console.log(user);
 const { data: favoriteMovies } = useGetListQuery({ user, listName: 'favorite', page: 1 });
 const { data: watchlistMovies } = useGetListQuery({ user, listName: 'watchlist', page: 1 });
-console.dir(favoriteMovies);
-console.dir(watchlistMovies);
+// console.dir(favoriteMovies);
+// console.dir(watchlistMovies);
 useEffect(() => {
   if (favoriteMovies?.results) {
     setIsFavorite(!! favoriteMovies?.results.find(movie => movie?.id === data?.id));
@@ -123,7 +127,7 @@ useEffect(() => {
   return (
     <Grid container spacing={3} sx={{ my: 2 }}>
       {/* Poster */}
-      <Grid item xs={12} lg={5} sx={{ display: 'flex', justifyContent: 'center', mx: 'auto' }}>
+      <Grid size={{ xs: 12, lg: 5 }} sx={{ display: 'flex', justifyContent: 'center', mx: 'auto', padding: 2 }}>
         <Box
           component="img"
           src={data.poster_path ? `https://image.tmdb.org/t/p/w500${data.poster_path}` : "/no-poster.png"}
@@ -133,13 +137,13 @@ useEffect(() => {
             borderRadius: '15px',
             boxShadow: '0.5em 1em 1em rgba(64,64,70,0.8)',
             height: { xs: 350, sm: 400, md: 500 },
-            objectFit: 'cover'
+            objectFit: 'fit'
           }}
         />
       </Grid>
 
       {/* Movie Details */}
-      <Grid item xs={12} lg={7} direction="column" spacing={2} sx={{
+      <Grid size={{ xs: 12, lg: 7 }}  direction="column" spacing={2} sx={{
         px: 2,
         justifyContent: 'center',
         alignItems: 'center',
@@ -269,7 +273,7 @@ useEffect(() => {
         sx={{ mt: 3, textAlign: 'center' }}
       >
         {/* Overview Section */}
-        <Grid item xs={12}>
+        <Grid size={{ xs: 12 }}>
           <Typography variant="h4" gutterBottom>Overview:</Typography>
           <Typography
             marginBottom="2rem"
@@ -281,7 +285,7 @@ useEffect(() => {
         </Grid>
 
         {/* Top Cast Section */}
-        <Grid item xs={12}>
+        <Grid size={{ xs: 12 }}>
           <Typography variant="h4" gutterBottom>
             Top Cast:
           </Typography>
@@ -334,7 +338,7 @@ useEffect(() => {
           sx={{ mt: 3, textAlign: 'center' }}
         >
           {/* Left Button Group */}
-          <Grid item xs={12} sm={6} display="flex" justifyContent="center">
+          <Grid size={{ xs: 12, sm: 6 }} display="flex" justifyContent="center">
             <ButtonGroup
               size="small"
               variant="outlined"
@@ -361,7 +365,7 @@ useEffect(() => {
               <Button
                 target="_blank"
                 rel="noopener noreferrer"
-                href={data?.homepage}
+                href={data?.homepage || `https://www.themoviedb.org/movie/${data?.id}`}
                 endIcon={<Language />}
               >
                 Website
@@ -384,7 +388,7 @@ useEffect(() => {
           </Grid>
 
           {/* Right Button Group */}
-          <Grid item xs={12} sm={6} display="flex" justifyContent="center">
+          <Grid size={{ xs: 12, sm: 6 }} display="flex" justifyContent="center">
             <ButtonGroup
               size="small"
               variant="outlined"
@@ -488,7 +492,7 @@ useEffect(() => {
             }}
           >
             <iframe
-              frameBorder="0"
+              allowFullScreen
               title="trailer"
               src={`https://www.youtube.com/embed/${data?.videos.results[0].key}?autoplay=1`}
               allow="autoplay; encrypted-media"
@@ -511,40 +515,6 @@ useEffect(() => {
   )
 }
 
-function InfoRow({ label, value }) {
-  return (
-    <Box
-      display="flex"
-      flexDirection={{ xs: "column", md: "row", sm: "column" }} // stack on mobile, row on md+
-      justifyContent={{ xs: "flex-start", md: "space-between" }}
-      alignItems={{ xs: "flex-start", md: "center" }}
-      sx={{ mb: 1 }}
-    >
-      <Typography
-        variant="h6"
-        sx={{ flexShrink: 0, mb: { xs: 0.5, md: 0 } }}
-      >
-        {label}:
-      </Typography>
 
-      <Box
-        sx={{
-          textAlign: { xs: "left", md: "right" },
-          flexGrow: 1,
-          ml: { md: 2 },
-          wordBreak: "break-word",
-          whiteSpace: "normal", // ensures wrapping instead of overflow
-        }}
-      >
-        {typeof value === "string" ? (
-          <Typography variant="body1">{value}</Typography>
-        ) : (
-          value
-        )}
-      </Box>
-
-    </Box>
-  );
-}
 
 export default MovieInfo;

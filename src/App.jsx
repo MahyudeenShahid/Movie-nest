@@ -12,7 +12,7 @@ function App() {
     
     <CssBaseline />
     <NavBar />
-    <Box sx={{ mt: { sm: '100px' , xs : '120px' }, ml: { sm: '240px' } }}>
+    <Box sx={{ mt: { sm: '100px' , xs : '131px' }, ml: { sm: '240px' } }}>
     <Routes>
 
       <Route path="/movie/:id" element={<MovieInfo />} />

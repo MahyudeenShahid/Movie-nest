@@ -21,11 +21,11 @@ function Movie({ movie, index }) {
             alignItems: 'center',
             justifyContent: 'center',
             textDecoration: 'none',
-            borderRadius: 3,
+            borderRadius: 2,
             boxShadow: 3,
             overflow: 'hidden',
             // ✅ just adding padding + small gap
-            p: 2,
+            p: 1.5,
             gap: 1,
             backgroundColor:
               theme.palette.mode === 'light'
@@ -56,7 +56,7 @@ function Movie({ movie, index }) {
               width: '100%',
               objectFit: 'cover',
               display: 'block',
-              borderRadius: 4,
+              borderRadius: 2,
             }}
           />
 

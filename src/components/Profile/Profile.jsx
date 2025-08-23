@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { userSelector } from '../../features/Auth';
 import { Box, Button, Typography } from '@mui/material';
@@ -15,9 +15,14 @@ function Profile() {
     window.location.href = '/'; // Redirect to home page after logout
   };
   // console.dir(user);
-  const { data: favoriteMovies } = useGetListQuery({ user, listName: 'favorite', page: 1 });
-  const { data: watchlistMovies } = useGetListQuery({ user, listName: 'watchlist', page: 1 });
-  
+  const { data: favoriteMovies ,refetch : refetchFavorite} = useGetListQuery({ user, listName: 'favorite', page: 1 });
+  const { data: watchlistMovies ,refetch : refetchWatchlist} = useGetListQuery({ user, listName: 'watchlist', page: 1 });
+
+  useEffect(() => {
+    refetchFavorite();
+    refetchWatchlist();
+    
+  }, []);
   return (
     <Box>
       <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'} >

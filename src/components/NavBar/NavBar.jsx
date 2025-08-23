@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import {
   AppBar,
   IconButton,
@@ -22,12 +22,14 @@ import { white } from '../../assets'
 import { fetchToken, createSessionId,movieApi } from '../../components/utils'
 import { useDispatch, useSelector } from 'react-redux'
 import { setUser,userSelector } from '../../features/Auth'
+import { ColorModeContext } from '../utils/ToggleTheme'
 
 function NavBar() {
   const theme = useTheme();
   const { user, isAuthenticated, sessionId } = useSelector(userSelector);
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const [mobileOpen, setMobileOpen] = useState(false);
+  const colorMode= useContext(ColorModeContext)
 
   // console.dir(user, isAuthenticated, sessionId);
   const drawerWidth = 240;
@@ -100,7 +102,7 @@ const dispatch = useDispatch();
 
 
           {/* Theme toggle button */}
-          <IconButton color="inherit" sx={{ ml: 1 }} onClick={() => { }}>
+          <IconButton color="inherit" sx={{ ml: 1 }} onClick={colorMode.toggleColorMode}>
             {theme.palette.mode === 'dark' ? <Brightness7 /> : <Brightness4 />}
           </IconButton>
 

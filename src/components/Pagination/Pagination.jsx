@@ -30,29 +30,36 @@ function Pagination({ currentPage, setPage, totalPage }) {
     >
       {/* Prev Button */}
       <Button
-        variant="contained"
-        onClick={prevPage}
-        disabled={currentPage === 1}
-        sx={{
-          px: 3,
-          py: 1,
-          fontWeight: 'bold',
-          borderRadius: 2,
-          textTransform: 'none',
-          backgroundColor: theme.palette.primary.main,
-          '&:hover': {
-            backgroundColor: theme.palette.primary.dark,
-            transform: 'scale(1.05)',
-          },
-          '&:disabled': {
-            backgroundColor: theme.palette.action.disabled,
-            color: theme.palette.text.disabled,
-          },
-          transition: 'all 0.3s ease-in-out',
-        }}
-      >
-        Prev
-      </Button>
+  variant="contained"
+  onClick={prevPage}
+  disabled={currentPage === 1}
+  sx={{
+    px: 3,
+    py: 1,
+    fontWeight: 'bold',
+    borderRadius: 2,
+    textTransform: 'none',
+    backgroundColor:
+      theme.palette.mode === 'light'
+        ? theme.palette.primary.main   // light mode color
+        : theme.palette.error.dark, // dark mode color
+    '&:hover': {
+      backgroundColor:
+        theme.palette.mode === 'light'
+          ? theme.palette.primary.dark
+          : theme.palette.error.main,
+      transform: 'scale(1.05)',
+    },
+    '&:disabled': {
+      backgroundColor: theme.palette.action.disabled,
+      color: theme.palette.text.disabled,
+    },
+    transition: 'all 0.3s ease-in-out',
+  }}
+>
+  Prev
+</Button>
+
 
       {/* Current Page */}
       <Typography
@@ -73,22 +80,28 @@ function Pagination({ currentPage, setPage, totalPage }) {
         onClick={nextPage}
         disabled={currentPage === totalPage}
         sx={{
-          px: 3,
-          py: 1,
-          fontWeight: 'bold',
-          borderRadius: 2,
-          textTransform: 'none',
-          backgroundColor: theme.palette.primary.main,
-          '&:hover': {
-            backgroundColor: theme.palette.primary.dark,
-            transform: 'scale(1.05)',
-          },
-          '&:disabled': {
-            backgroundColor: theme.palette.action.disabled,
-            color: theme.palette.text.disabled,
-          },
-          transition: 'all 0.3s ease-in-out',
-        }}
+    px: 3,
+    py: 1,
+    fontWeight: 'bold',
+    borderRadius: 2,
+    textTransform: 'none',
+    backgroundColor:
+      theme.palette.mode === 'light'
+        ? theme.palette.primary.main   // light mode color
+        : theme.palette.error.dark, // dark mode color
+    '&:hover': {
+      backgroundColor:
+        theme.palette.mode === 'light'
+          ? theme.palette.primary.dark
+          : theme.palette.error.main,
+      transform: 'scale(1.05)',
+    },
+    '&:disabled': {
+      backgroundColor: theme.palette.action.disabled,
+      color: theme.palette.text.disabled,
+    },
+    transition: 'all 0.3s ease-in-out',
+  }}
       >
         Next
       </Button>
