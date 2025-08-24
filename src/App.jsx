@@ -1,15 +1,10 @@
-import React, { useRef } from 'react';
+import React  from 'react';
 import { Box, CssBaseline } from '@mui/material';
 import { Route, Routes } from 'react-router-dom';
-import { Movies, MovieInfo, Actors, Profile, NavBar } from './components';
-import useAlan from './components/Alan';
+import { Movies, MovieInfo, Actors, Profile, NavBar, Footer } from './components';
+
 
 function App() {
-  const alanBtnContainer = useRef();
-  
-  // Pass ref into hook so Alan button attaches to it
-  useAlan(alanBtnContainer);
-
   return (
     <>
       <CssBaseline />
@@ -22,8 +17,9 @@ function App() {
           <Route path="/profile/:id" element={<Profile />} />
           <Route path="/category/:genreIdOrCategoryName" element={<Movies />} />
         </Routes>
+      <Footer />
       </Box>
-      <div ref={alanBtnContainer} /> {/* Alan AI button mounts here */}
+
     </>
   );
 }

@@ -1,4 +1,4 @@
-import { useTheme } from '@mui/material/styles'; // ✅ useTheme from MUI not emotion
+import { alpha, useTheme } from '@mui/material/styles'; // ✅ useTheme from MUI not emotion
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Box, CircularProgress, Divider, List, ListItem, ListItemButton, ListItemIcon, ListItemText, ListSubheader } from '@mui/material'; // ✅ MUI Box for sx
@@ -29,31 +29,45 @@ setMobileOpen(false);
 
   return (
     <>
-    <Box
-      component={Link}
-      to="/"
-      sx={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        padding: '0 0',
-        textDecoration: 'none',
-        transform: { xs: 'translateY(0%)', sm: 'translateY(-20%)' } ,
-        position:'sticky',
-        top: 0,
-        zIndex: 1000
-      }}
-    >
-      
-      <Box
-        component="img"
-        src={theme.palette.mode === 'dark' ? red : blue}
-        alt="Logo"
-        sx={{
-          width: '70%',
-        }}
-      />
-    </Box>
+<Box
+  component={Link}
+  to="/"
+  sx={{
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 0,
+    textDecoration: 'none',
+    transform: { xs: 'translateY(0%)', sm: 'translateY(-20%)' },
+    position: 'sticky',
+    top: 0,
+    zIndex: 1000,
+  }}
+>
+  <Box
+    component="img"
+    src={theme.palette.mode === 'dark' ? red : blue}
+    alt="Logo"
+    sx={{
+      width: '70%',
+      filter: `
+        drop-shadow(0 2px 6px ${alpha(
+          theme.palette.mode === 'dark'
+            ? theme.palette.error.light
+            : theme.palette.primary.main,
+          0.6
+        )})
+        drop-shadow(0 6px 12px ${alpha(
+          theme.palette.mode === 'dark'
+            ? theme.palette.error.light
+            : theme.palette.primary.main,
+          0.3
+        )})
+      `,
+    }}
+  />
+</Box>
+
     <Divider />
       <List>
         <ListSubheader sx={{textAlign: 'center',
@@ -70,7 +84,9 @@ setMobileOpen(false);
             sx={{
               color: theme.palette.text.primary,
               textDecoration: 'none',
-              '&:hover': { textDecoration: 'none', color: theme.palette.primary.main },
+              '&:hover': { textDecoration: 'none', color: theme.palette.mode === 'dark'?
+                    theme.palette.error.light:
+                    theme.palette.primary.main, },
             }}
           >
             <ListItemButton onClick={() => dispatch(selectGenreAndCategory(value))}>
@@ -114,7 +130,9 @@ setMobileOpen(false);
             sx={{
               color: theme.palette.text.primary,
               textDecoration: 'none',
-              '&:hover': { textDecoration: 'none', color: theme.palette.primary.main },
+              '&:hover': { textDecoration: 'none', color: theme.palette.mode === 'dark'?
+                    theme.palette.error.light:
+                    theme.palette.primary.main, },
             }}
           >
             <ListItemButton onClick={() => dispatch(selectGenreAndCategory(id))}>

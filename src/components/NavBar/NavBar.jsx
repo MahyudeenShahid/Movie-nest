@@ -26,7 +26,7 @@ import { ColorModeContext } from '../utils/ToggleTheme'
 
 function NavBar() {
   const theme = useTheme();
-  const { user, isAuthenticated, sessionId } = useSelector(userSelector);
+  const { user, isAuthenticated, } = useSelector(userSelector);
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const [mobileOpen, setMobileOpen] = useState(false);
   const colorMode= useContext(ColorModeContext)
@@ -85,7 +85,7 @@ const dispatch = useDispatch();
 
           {/* Logo only on mobile */}
           {isMobile && (
-            <Box sx={{ flexGrow: 0 }}>
+            <Box component={Link} to={'/'} sx={{ flexGrow: 0 }}>
               <Box
                 component="img"
                 src={white}
@@ -95,6 +95,11 @@ const dispatch = useDispatch();
                   width: 'auto',
                   ml: 1,
                   cursor: 'pointer',
+                  filter: `drop-shadow(0 4px 10px ${
+      theme.palette.mode === 'dark'
+        ? theme.palette.error.light
+        : theme.palette.primary.main
+    })`,
                 }}
               />
             </Box>
@@ -102,7 +107,12 @@ const dispatch = useDispatch();
 
 
           {/* Theme toggle button */}
-          <IconButton color="inherit" sx={{ ml: 1 }} onClick={colorMode.toggleColorMode}>
+          <IconButton color="inherit" sx={{ ml: 1 ,
+            transition: 'all 0.3s ease',
+                      '&:hover': {
+                        transform: 'rotate(180deg) scale(1.2)',
+                      },
+          }} onClick={colorMode.toggleColorMode}>
             {theme.palette.mode === 'dark' ? <Brightness7 /> : <Brightness4 />}
           </IconButton>
 
