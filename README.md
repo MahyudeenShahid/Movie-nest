@@ -303,9 +303,7 @@ The application is ready for deployment on:
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
-## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## 👨‍💻 Developer
 
@@ -322,18 +320,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **React Team** for the amazing framework
 - **Flaticon** for the genre icons
 
-## 🔮 Future Enhancements
-
-- [ ] Social features and movie reviews
-- [ ] Advanced filtering options
-- [ ] Movie recommendation engine
-- [ ] Offline support with PWA
-- [ ] Multi-language support
-- [ ] Enhanced mobile app experience
-- [ ] Integration with streaming platforms
-- [ ] Movie trailer autoplay
-- [ ] Social sharing features
-- [ ] Advanced search filters
 
 ---
 
